@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { View, TextInput, StyleSheet, TouchableOpacity, Text } from "react-native";
+
+
 function Input(props) {
     const [input, setInput] = useState("");
 
@@ -16,15 +18,16 @@ function Input(props) {
 
     return (
         <View style={styles.container}>
-            <TextInput 
+            <TextInput
                 style={styles.input}
-                placeholder="Enter the task"
-                placeholderTextColor="#888" 
+                placeholder={props.place}
+                placeholderTextColor={props.holderColor}
                 value={input}
                 onChange={handelChange}
+
             />
             <TouchableOpacity style={styles.button} onPress={handelClick}>
-                <Text style={{color: 'white'}}>Add</Text>
+                <Text style={{ color: 'white' }}>Add</Text>
             </TouchableOpacity>
         </View>
     );
@@ -38,15 +41,20 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     button: {
-        padding: 10,
-        backgroundColor: '#4CAF50', 
+        padding: 14,
+        backgroundColor: '#4CAF50',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 5,
+        borderWidth:1,
+        borderColor: 'white'
+
     },
     buttonText: {
         color: 'white',
         fontSize: 18,
+        borderColor: 'rgba(0,0,0,0.5)'
+
     },
     input: {
         color: 'white',
@@ -56,7 +64,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
         flex: 1,
         borderRadius: 5,
-        backgroundColor: '#2e2e2e', 
+        backgroundColor: '#2e2e2e',
     }
 });
 

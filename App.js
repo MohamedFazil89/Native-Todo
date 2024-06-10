@@ -7,6 +7,8 @@ import Notes from './Components/Notes';
 
 export default function App() {
   const [task, setTask] = useState([]);
+  const [holder, setHolder] = useState("Enter the Task");
+  const [color, setColor] = useState("gray")
 
   useEffect(() => {
     // Load tasks from AsyncStorage when the component mounts
@@ -33,9 +35,17 @@ export default function App() {
   };
 
   const addTask = (input) => {
-    const newTask = [...task, input];
-    setTask(newTask);
-    saveTasks(newTask);
+    if (input) {
+      const newTask = [...task, input];
+      setTask(newTask);
+      saveTasks(newTask);
+      setColor("gray")
+      setHolder("Enter the Task!!")
+
+    } else {
+      setHolder("You must Enter any Task!!")
+      setColor("red")
+    }
   };
 
   const handleDelete = (index) => {
@@ -52,7 +62,11 @@ export default function App() {
       </View>
 
       <View style={styles.body}>
-        <Input onAdd={addTask} />
+        <Input onAdd={addTask}
+         place={holder}
+         holderColor={color}
+
+        />
         <FlatList
           style={styles.list}
           data={task}
@@ -77,6 +91,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+
   },
   list: {
     flex: 1,
@@ -89,5 +104,8 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     marginBottom: 20,
+    borderWidth: 3,
+    borderColor: 'rgba(0,0,0,0.5)'
+
   },
 });
