@@ -1,4 +1,4 @@
-import React, { View , Text, StyleSheet, TouchableOpacity, Animated } from "react-native";
+import React, { Text, StyleSheet, TouchableOpacity, Animated } from "react-native";
 
 function Notes(props){
     return(
