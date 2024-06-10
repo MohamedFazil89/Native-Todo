@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         width: '100%',
         padding: 10,
         marginVertical: 5,
-        backgroundColor: '#333', // Dark background to match the app theme
+        backgroundColor: '#333',
         borderRadius: 10,
         flexDirection:'row'
     },
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: 'white',
         padding: 10,
-        backgroundColor: '#4CAF50', // Green background for the notes
+        backgroundColor: '#4CAF50', 
         borderRadius: 5,
         justifyContent: 'flex-start',
         textAlign:'left',
