@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { View, TextInput, StyleSheet, TouchableOpacity, Text } from "react-native";
-import Icon from 'react-native-vector-icons/MaterialIcons'; // You can choose any icon set
 function Input(props) {
     const [input, setInput] = useState("");
 
@@ -20,7 +19,7 @@ function Input(props) {
             <TextInput 
                 style={styles.input}
                 placeholder="Enter the task"
-                placeholderTextColor="#888" // Light grey placeholder text color
+                placeholderTextColor="#888" 
                 value={input}
                 onChange={handelChange}
             />
@@ -40,7 +39,7 @@ const styles = StyleSheet.create({
     },
     button: {
         padding: 10,
-        backgroundColor: '#4CAF50', // A shade of green for the button
+        backgroundColor: '#4CAF50', 
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 5,
@@ -57,7 +56,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
         flex: 1,
         borderRadius: 5,
-        backgroundColor: '#2e2e2e', // Dark background for the input to match the theme
+        backgroundColor: '#2e2e2e', 
     }
 });
 

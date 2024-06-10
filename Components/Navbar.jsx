@@ -14,7 +14,7 @@ function NavBar(props){
 const style = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#1e1e1e', // A darker shade of black for better contrast
+      backgroundColor: '#1e1e1e', 
       paddingHorizontal: 20,
       paddingVertical: 40,
     },
