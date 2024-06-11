@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, SafeAreaView, View, FlatList } from 'react-native';
+import { StyleSheet, SafeAreaView, View, FlatList, Modal, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NavBar from './Components/Navbar';
 import Input from './Components/Input';
 import Notes from './Components/Notes';
+import Alerts from './Components/alert';
 
 export default function App() {
   const [task, setTask] = useState([]);
   const [holder, setHolder] = useState("Enter the Task");
-  const [color, setColor] = useState("gray")
+  const [color, setColor] = useState("gray");
+  const [ModalVisible, setModalVisible] = useState(false);
+  const [res, setRes] = useState(false);
+
+
 
   useEffect(() => {
-    // Load tasks from AsyncStorage when the component mounts
     loadTasks();
   }, []);
 
@@ -47,24 +51,57 @@ export default function App() {
       setColor("red")
     }
   };
+  // console.log(res)
 
   const handleDelete = (index) => {
-    const updatedTask = [...task];
-    updatedTask.splice(index, 1);
-    setTask(updatedTask);
-    saveTasks(updatedTask);
+    console.log("delete" + res);
+
+    setModalVisible(true)
+    if (res) {
+      const updatedTask = [...task];
+      updatedTask.splice(index, 1);
+      setTask(updatedTask);
+      saveTasks(updatedTask);
+      setModalVisible(false)
+      setRes(false)
+    }
+
   };
+
+  function handleState(state) {
+    console.log("handel state:" + state);
+    setRes(state)
+    if (state === false) {
+      setModalVisible(false)
+    } else {
+      handleDelete();
+    }
+  }
 
   return (
     <SafeAreaView style={styles.container}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={ModalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!ModalVisible);
+        }}>
+        {/* this is the model component */}
+        <Alerts modelState={handleState} />
+
+
+
+      </Modal>
       <View style={styles.Nav}>
         <NavBar name="Todo List" />
       </View>
 
       <View style={styles.body}>
         <Input onAdd={addTask}
-         place={holder}
-         holderColor={color}
+          place={holder}
+          holderColor={color}
 
         />
         <FlatList
