@@ -1,17 +1,19 @@
 import * as React from "react-native";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import Animated from 'react-native-reanimated';
+
 
 
 function NavBar(props) {
   return (
-    <View style={style.container}>
+    <Animated.View style={style.container} sharedTransitionTag="tag">
       <Text style={style.Navs}>{props.name}</Text>
       <Pressable onPress={() => props.onPresses()}>
-      <Icon style={style.icon} name="user" />
+      <Icon style={style.icon} name="user"  />
 
       </Pressable>
-    </View>
+    </Animated.View>
 
 
   );
@@ -30,8 +32,8 @@ const style = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     textAlign: 'center',
-    // marginTop: 6,
-    marginLeft: 120,
+    marginTop: 6,
+    marginLeft: 80,
     margin: 'auto'
   },
 

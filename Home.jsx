@@ -10,10 +10,8 @@ export default function Home({ navigation }) {
   const [task, setTask] = useState([]);
   const [holder, setHolder] = useState("Enter the Task");
   const [color, setColor] = useState("gray");
-  const [ModalVisible, setModalVisible] = useState(false);
-  const [res, setRes] = useState(false);
-
-
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedTaskIndex, setSelectedTaskIndex] = useState(null);
 
   useEffect(() => {
     loadTasks();
@@ -43,66 +41,58 @@ export default function Home({ navigation }) {
       const newTask = [...task, input];
       setTask(newTask);
       saveTasks(newTask);
-      setColor("gray")
-      setHolder("Enter the Task!!")
-
+      setColor("gray");
+      setHolder("Enter the Task!!");
     } else {
-      setHolder("You must Enter any Task!!")
-      setColor("red")
+      setHolder("You must Enter any Task!!");
+      setColor("red");
     }
   };
-  // console.log(res)
 
   const handleDelete = (index) => {
-    console.log("delete" + res);
-
-    setModalVisible(true)
-    if (res) {
-      const updatedTask = [...task];
-      updatedTask.splice(index, 1);
-      setTask(updatedTask);
-      saveTasks(updatedTask);
-      setModalVisible(false)
-      setRes(false)
-    }
-
+    setSelectedTaskIndex(index);
+    setModalVisible(true);
   };
 
-  function handleState(state) {
-    console.log("handel state:" + state);
-    setRes(state)
-    if (state === false) {
-      setModalVisible(false)
+  const confirmDelete = () => {
+    const updatedTask = [...task];
+    updatedTask.splice(selectedTaskIndex, 1);
+    setTask(updatedTask);
+    saveTasks(updatedTask);
+    setModalVisible(false);
+    setSelectedTaskIndex(null);
+  };
+
+  const handleState = (state) => {
+    if (state) {
+      confirmDelete();
     } else {
-      handleDelete();
+      setModalVisible(false);
+      setSelectedTaskIndex(null);
     }
-  }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <Modal
         animationType="slide"
         transparent={true}
-        visible={ModalVisible}
+        visible={modalVisible}
         onRequestClose={() => {
           Alert.alert('Modal has been closed.');
-          setModalVisible(!ModalVisible);
-        }}>
-        {/* this is the model component */}
+          setModalVisible(!modalVisible);
+        }}
+      >
         <Alerts modelState={handleState} />
-
-
-
       </Modal>
       <View style={styles.Nav}>
-        <NavBar name="Todo List" onPresses={() => navigation.navigate('User')}/>
+        <NavBar name="Todo List" onPresses={() => navigation.navigate('User')} />
       </View>
-
       <View style={styles.body}>
-        <Input onAdd={addTask}
+        <Input
+          onAdd={addTask}
           place={holder}
           holderColor={color}
-
         />
         <FlatList
           style={styles.list}
@@ -128,7 +118,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-
   },
   list: {
     flex: 1,
@@ -142,7 +131,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 20,
     borderWidth: 3,
-    borderColor: 'rgba(0,0,0,0.5)'
-
+    borderColor: 'rgba(0,0,0,0.5)',
   },
 });
